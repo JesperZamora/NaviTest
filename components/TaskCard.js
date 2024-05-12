@@ -1,13 +1,17 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import FontAwesome from '@expo/vector-icons/FontAwesome';
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 
-export default function TaskCard({ title, task, navigation }) {
+export default function TaskCard({ title, task, navigation, deleteCard }) {
   return (
     <TouchableOpacity onPress={navigation} style={styles.card}>
       <View>
-        <View style={{flexDirection: "row", justifyContent:"space-between"}}>
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <Text style={styles.title}>{title}</Text>
-          <FontAwesome name="remove" size={20} color="#929292" />
+          <TouchableOpacity
+            onPress={deleteCard}
+          >
+            <FontAwesome name="remove" size={20} color="#929292" />
+          </TouchableOpacity>
         </View>
         <Text style={styles.text}>{task}</Text>
       </View>

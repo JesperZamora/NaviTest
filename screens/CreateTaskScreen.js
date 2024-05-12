@@ -13,6 +13,13 @@ export default function CreateTaskScreen({ navigation }) {
     title: "",
     task: "",
   });
+  
+  function navigateToTasks() {
+    if(task.task !== "" || task.title !== "") {
+      navigation.navigate("Tasks", { newTask: task });
+    }
+  }
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
@@ -45,14 +52,14 @@ export default function CreateTaskScreen({ navigation }) {
               placeholder="Just write it down ..."
               placeholderTextColor="#6b7280"
               value={task.task}
-              onChangeText={(task) => setTask({ ...task, task })}
+              onChangeText={(newTask) => setTask({ ...task, task: newTask })}
               multiline={true}
               // numberOfLines={10}
             />
           </View>
 
           <View style={styles.formAction}>
-            <TouchableOpacity onPress={() => navigation.navigate("Tasks")}>
+            <TouchableOpacity onPress={navigateToTasks}>
               <View style={styles.btn}>
                 <Text style={styles.btnText}>Save new task</Text>
               </View>

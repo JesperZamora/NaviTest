@@ -8,11 +8,15 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function EditTaskScreen({ navigation }) {
-  const [task, setTask] = useState({
-    title: "",
-    task: "",
-  });
+export default function EditTaskScreen({ route, navigation }) {
+  const [task, setTask] = useState(route.params?.item);
+
+  function navigateToTasks() {
+    if(task.task !== "" || task.title !== "") {
+      navigation.navigate("Tasks", { editTask: task });
+    }
+  }
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
@@ -45,14 +49,14 @@ export default function EditTaskScreen({ navigation }) {
               placeholder="Just write it down ..."
               placeholderTextColor="#6b7280"
               value={task.task}
-              onChangeText={(task) => setTask({ ...task, task })}
+              onChangeText={(newTask) => setTask({ ...task, task: newTask })}
               multiline={true}
               // numberOfLines={10}
             />
           </View>
 
           <View style={styles.formAction}>
-            <TouchableOpacity onPress={() => navigation.navigate("Tasks")}>
+            <TouchableOpacity onPress={navigateToTasks}>
               <View style={styles.btn}>
                 <Text style={styles.btnText}>Save changes</Text>
               </View>
