@@ -1,3 +1,12 @@
+import { app, database } from "../firebase";
+import {
+  collection,
+  addDoc,
+  deleteDoc,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
+import { useCollection } from "react-firebase-hooks/firestore";
 import { useState, useEffect } from "react";
 import {
   View,
@@ -10,62 +19,63 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import TaskCard from "../components/TaskCard";
 
+const colData = "tasksCol";
 export default function TasksScreen({ route, navigation }) {
-  const [tasks, setTasks] = useState([
-    {
-      taskId: 1,
-      title: "Hello world!",
-      task: "This is the world! This is the world! This is the world! This is the world! This is the world! This is the world! This is the world!",
-    },
-    { taskId: 2, title: "Task1", task: "This is the new world!" },
-    { taskId: 3, title: "Task2", task: "This is the world!!" },
-    { taskId: 4, title: "Hello", task: "This is the world!" },
-    { taskId: 5, title: "Hello3", task: "This is the world!2!" },
-    { taskId: 6, title: "Hello", task: "This is the world!" },
-  ]);
+  const [values, loading, error] = useCollection(collection(database, colData));
+  const data =
+    values?.docs.map((doc) => ({ ...doc.data(), taskId: doc.id })) ?? [];
 
   const [searchQuery, setSearchQuery] = useState("");
-  
-  const filteredTasks = tasks.filter(
+
+  const filteredTasks = data.filter(
     (task) =>
       task.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       task.task.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  async function postTask(task) {
+    try {
+      await addDoc(collection(database, colData), task);
+    } catch (error) {
+      console.log("Error saving document:", error);
+    }
+  }
+
+  async function putTask(task) {
+    try {
+      const editDocRef = doc(database, colData, task.taskId);
+      await updateDoc(editDocRef, {
+        title: task.title,
+        task: task.task
+      });
+    } catch (error) {
+      console.log("Error updating document:", error);
+    }
+  }
+
+  async function deleteTask(taskId) {
+    try {
+      const taskDocRef = doc(database, colData, taskId);
+      await deleteDoc(taskDocRef);
+    } catch (error) {
+      console.error("Error deleting task:", error);
+    }
+  }
+
   useEffect(() => {
     if (route.params?.newTask) {
-      const newTask = route.params?.newTask
-      newTask.taskId = (tasks.length + 1); 
-      setTasks((prevTasks) => [...prevTasks, newTask]);
+      const newTask = route.params?.newTask;
+      postTask(newTask);
     }
   }, [route.params?.newTask]);
 
   useEffect(() => {
     if (route.params?.editTask) {
-      const editTask = route.params?.editTask;
-      const updatedTasks = tasks.map((task) => {
-        if(task.taskId === editTask.taskId) {
-          return {
-            taskId: editTask.taskId,
-            title: editTask.title,
-            task: editTask.task
-          }
-        }
-        return task;
-      })
-      setTasks(updatedTasks);
+      const editedTask = route.params?.editTask;
+      putTask(editedTask);
     }
   }, [route.params?.editTask]);
 
-  function deleteTask(id) {
-    const newTaskList = tasks.filter((task) => {
-      if(task.taskId !== id) {
-        return task;
-      }
-    })
-    setTasks(newTaskList);
-  }
-  
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
@@ -147,6 +157,6 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
   flatlist: {
-    borderRadius: 12 
-  }
+    borderRadius: 12,
+  },
 });

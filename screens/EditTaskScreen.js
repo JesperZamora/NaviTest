@@ -14,6 +14,7 @@ export default function EditTaskScreen({ route, navigation }) {
   function navigateToTasks() {
     if(task.task !== "" || task.title !== "") {
       navigation.navigate("Tasks", { editTask: task });
+      setTask({ title: "", task: "" });
     }
   }
 

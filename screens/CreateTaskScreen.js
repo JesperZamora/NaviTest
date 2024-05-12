@@ -17,6 +17,7 @@ export default function CreateTaskScreen({ navigation }) {
   function navigateToTasks() {
     if(task.task !== "" || task.title !== "") {
       navigation.navigate("Tasks", { newTask: task });
+      setTask({ title: "", task: "" });
     }
   }
 
