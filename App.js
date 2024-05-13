@@ -10,6 +10,7 @@ import CreateTaskScreen from "./screens/CreateTaskScreen";
 import EditTaskScreen from "./screens/EditTaskScreen";
 
 import { View, Text, TouchableOpacity } from "react-native";
+import AIScreen from "./screens/AIScreen";
 
 export default function App({ navigation }) {
   const Stack = createNativeStackNavigator();
@@ -69,6 +70,9 @@ export default function App({ navigation }) {
             ),
           })}
         />
+        
+      
+        <Stack.Screen name="AI" component={AIScreen} />
         <Stack.Screen name="Create Task" component={CreateTaskScreen} />
         <Stack.Screen name="Edit Task" component={EditTaskScreen} />
       </Stack.Navigator>

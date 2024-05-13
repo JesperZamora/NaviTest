@@ -3,8 +3,8 @@ import { View, Text, StyleSheet, Button } from "react-native";
 export default function OverviewScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Overview</Text>
-      <Button title="Go to Tasks" onPress={() => navigation.navigate("Tasks") } /> 
+      <Button title="Go to Tasks" onPress={() => navigation.navigate("Tasks") } />
+      <Button title="Go to AI" onPress={() => navigation.navigate("AI") } /> 
     </View>
   );
 }
