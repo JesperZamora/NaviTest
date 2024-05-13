@@ -8,7 +8,7 @@ export default function TaskCard({ title, task, navigation, deleteCard }) {
       <View style={styles.titleContainer}>
         <Text style={styles.title}>{title}</Text>
         <View style={styles.btnGroup}>
-          <TextToSpeech say={task} />
+          <TextToSpeech say={{title, task}} />
           <TouchableOpacity style={{marginBottom: 3}} onPress={deleteCard}>
             <FontAwesome name="remove" size={26} color="#929292" />
           </TouchableOpacity> 

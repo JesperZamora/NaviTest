@@ -6,11 +6,11 @@ import { FontAwesome } from '@expo/vector-icons';
 
 export default function TextToSpeech({ say }) {
   const speak = () => {
-    const thingToSay = say;
+    const thingToSay = `${say.task}`;
     const options = {
       language: 'en-US', // Specify the language
-      pitch: 0.2,        // Adjust the pitch (default is 1.0)
-      rate: 0.80,        // Adjust the speed of the speech (default is 1.0)
+      pitch: 0.5,        // Adjust the pitch (default is 1.0)
+      rate: 0.75,        // Adjust the speed of the speech (default is 1.0)
       volume: 0.8,       // Set the volume (80% of maximum volume)
       voice: 'com.apple.ttsbundle.Samantha-compact'
     };
