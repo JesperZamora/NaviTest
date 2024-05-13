@@ -1,20 +1,20 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import TextToSpeech from "../speech/TextToSpeech";
 
 export default function TaskCard({ title, task, navigation, deleteCard }) {
   return (
     <TouchableOpacity onPress={navigation} style={styles.card}>
-      <View>
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          <Text style={styles.title}>{title}</Text>
-          <TouchableOpacity
-            onPress={deleteCard}
-          >
-            <FontAwesome name="remove" size={20} color="#929292" />
-          </TouchableOpacity>
+      <View style={styles.titleContainer}>
+        <Text style={styles.title}>{title}</Text>
+        <View style={styles.btnGroup}>
+          <TextToSpeech say={task} />
+          <TouchableOpacity style={{marginBottom: 3}} onPress={deleteCard}>
+            <FontAwesome name="remove" size={26} color="#929292" />
+          </TouchableOpacity> 
         </View>
-        <Text style={styles.text}>{task}</Text>
       </View>
+      <Text style={styles.text}>{task}</Text>
     </TouchableOpacity>
   );
 }
@@ -32,6 +32,11 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
+  titleContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between"
+  },
   title: {
     fontSize: 22,
     fontWeight: "500",
@@ -45,4 +50,10 @@ const styles = StyleSheet.create({
     color: "#929292",
     letterSpacing: 0.2,
   },
+  btnGroup: { 
+    alignItems: "center", 
+    flexDirection: "row",
+    gap:22,
+    marginBottom: 6
+  }
 });
