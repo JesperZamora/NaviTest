@@ -5,6 +5,9 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform,
+  Keyboard,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -27,8 +30,7 @@ export default function EditTaskScreen({ route, navigation }) {
           </Text>
         </View>
 
-        <View style={styles.form}>
-          <View style={styles.input}>
+        <View style={styles.input}>
             <TextInput
               autoCapitalize="none"
               autoCorrect={false}
@@ -41,7 +43,7 @@ export default function EditTaskScreen({ route, navigation }) {
             />
           </View>
 
-          <View style={styles.input}>
+          <View style={[styles.input, styles.inputTaskForm]}>
             <TextInput
               autoCapitalize="none"
               autoCorrect={false}
@@ -56,14 +58,19 @@ export default function EditTaskScreen({ route, navigation }) {
             />
           </View>
 
-          <View style={styles.formAction}>
-            <TouchableOpacity onPress={navigateToTasks}>
-              <View style={styles.btn}>
-                <Text style={styles.btnText}>Save changes</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-        </View>
+          <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            style={{}}
+            keyboardVerticalOffset={150}
+          >
+            <View style={styles.formAction}>
+              <TouchableOpacity onPress={navigateToTasks}>
+                <View style={styles.btn}>
+                  <Text style={styles.btnText}>Save changes</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          </KeyboardAvoidingView>
       </View>
     </SafeAreaView>
   );
@@ -90,6 +97,9 @@ const styles = StyleSheet.create({
   input: {
     marginBottom: 16,
   },
+  inputTaskForm: {
+    flexGrow: 1
+  },
   inputTitle: {
     height: 44,
     backgroundColor: "#fff",
@@ -98,9 +108,10 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "500",
     color: "#222",
+    letterSpacing: 0.5
   },
   inputTask: {
-    height: 240,
+    flexGrow: 1,
     backgroundColor: "#fff",
     paddingVertical: 10,
     paddingHorizontal: 16,
@@ -108,6 +119,8 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "500",
     color: "#222",
+    letterSpacing: 0.5,
+    lineHeight: 20
   },
   form: {
     marginBottom: 24,

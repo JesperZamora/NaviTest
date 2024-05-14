@@ -6,7 +6,7 @@ export default function TaskCard({ title, task, navigation, deleteCard }) {
   return (
     <TouchableOpacity onPress={navigation} style={styles.card}>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.title}>{title.substring(0, 21)}</Text>
         <View style={styles.btnGroup}>
           <TextToSpeech say={{title, task}} />
           <TouchableOpacity style={{marginBottom: 3}} onPress={deleteCard}>
@@ -14,7 +14,9 @@ export default function TaskCard({ title, task, navigation, deleteCard }) {
           </TouchableOpacity> 
         </View>
       </View>
-      <Text style={styles.text}>{task}</Text>
+      <View>
+        <Text style={styles.text}>{task.substring(0, 165)}</Text>
+      </View> 
     </TouchableOpacity>
   );
 }
