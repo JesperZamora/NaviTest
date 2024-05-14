@@ -36,13 +36,17 @@ export default function AIScreen({navigation}) {
       if(res.success) {
         const complentions = res.data;
         const updatedCompletions = complentions.map((message) => {
-          return {
-            role: message.role,
-            content: message.content,
-            id: `user-${new Date().getTime()}`
+          if(!message.id) {
+            return {
+              role: message.role,
+              content: message.content,
+              id: `user-${new Date().getTime()}`
+            }
           }
+          return message;
+
         });
-        console.log(updatedCompletions);
+
         setMessages(updatedCompletions);
         setIsLoading(false);
       } else {
@@ -63,7 +67,6 @@ export default function AIScreen({navigation}) {
   function navigateToCreateTask(selectedMessage) {
     if(messages) {
       const filteredMessages = messages.filter((msg) => selectedMessage.id === msg.id);
-      console.log("navigation" , filteredMessages);
      
       navigation.navigate("Create Task", {item : { title: filteredMessages[0]. content, task: filteredMessages[1].content}});
     }
@@ -92,7 +95,7 @@ export default function AIScreen({navigation}) {
                 <View style={[styles.box, styles.aiBox]}>
                   <Image
                     source={{ uri: item.content }}
-                    style={{ borderRadius: 8, height: 200, width: 200 }}
+                    style={{ borderRadius: 8, height: 240, width: 240 }}
                     resizeMode="contain"
                   />
                 </View>
@@ -120,7 +123,6 @@ export default function AIScreen({navigation}) {
 
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
-          style={{}}
           keyboardVerticalOffset={100}
         >
           <View style={styles.inputContainer}>
@@ -154,7 +156,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    paddingHorizontal: 24,
+    paddingHorizontal: 16
   },
   header: {
     marginTop: 10,

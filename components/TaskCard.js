@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
 import TextToSpeech from "../speech/TextToSpeech";
+import { Entypo } from '@expo/vector-icons';
 
 export default function TaskCard({ title, task, navigation, deleteCard }) {
   return (
@@ -10,7 +10,7 @@ export default function TaskCard({ title, task, navigation, deleteCard }) {
         <View style={styles.btnGroup}>
           <TextToSpeech say={{title, task}} />
           <TouchableOpacity style={{marginBottom: 3}} onPress={deleteCard}>
-            <FontAwesome name="remove" size={26} color="#929292" />
+            <Entypo name="cross" size={30} color="#929292" />
           </TouchableOpacity> 
         </View>
       </View>

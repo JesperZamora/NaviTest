@@ -18,6 +18,7 @@ import {
   SafeAreaView
 } from "react-native";
 import TaskCard from "../components/TaskCard";
+import { AntDesign } from '@expo/vector-icons';
 
 const colData = "tasksCol";
 export default function TasksScreen({ route, navigation }) {
@@ -80,12 +81,13 @@ export default function TasksScreen({ route, navigation }) {
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <View style={styles.input}>
+          <AntDesign name="search1" size={22} color="grey" />
           <TextInput
             autoCapitalize="none"
             autoCorrect={false}
             keyboardType="default"
             style={styles.inputControl}
-            placeholder="Search"
+            placeholder="Search..."
             placeholderTextColor="#6b7280"
             value={searchQuery}
             onChangeText={(text) => setSearchQuery(text)}
@@ -122,14 +124,15 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   container: {
-    paddingHorizontal: 24,
+    paddingHorizontal: 16,
     paddingTop:26,
     flex: 1,
   },
   input: {
-    marginBottom: 16,
-  },
-  inputControl: {
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    marginBottom: 14,
     height: 44,
     backgroundColor: "#fff",
     paddingHorizontal: 16,
@@ -137,6 +140,12 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "500",
     color: "#222",
+    gap: 5,
+  },
+  inputControl: {
+    flex: 1,
+    fontSize: 18,
+    letterSpacing: 0.6
   },
   formAction: {
     marginVertical: 20,

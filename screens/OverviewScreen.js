@@ -46,7 +46,7 @@ export default function OverviewScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 24,
+    paddingHorizontal: 18,
     gap: 40,
     justifyContent: "center"
   },
@@ -68,15 +68,16 @@ const styles = StyleSheet.create({
   },
   btnText: {
     fontSize: 20,
-    fontWeight: "400",
+    fontWeight: "500",
     color: "#222",
-    marginBottom: 5
+    marginBottom: 5,
+    letterSpacing: 0.4,
   },
   text: {
     marginVertical: 5,
     fontSize: 15,
     fontWeight: "500",
     color: "#929292",
-    letterSpacing: 0.2,
+    letterSpacing: 0.6,
   }
 });

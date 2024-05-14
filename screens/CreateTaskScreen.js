@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   container: {
-    paddingHorizontal: 24,
+    paddingHorizontal: 16,
     paddingTop:20,
     flex: 1,
   },
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "500",
     color: "#222",
-    letterSpacing: 0.5,
+    letterSpacing: 0.6,
   },
   inputTask: {
     flexGrow: 1,
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "500",
     color: "#222",
-    letterSpacing: 0.5,
+    letterSpacing: 0.6,
     lineHeight: 20
   },
   formAction: {
