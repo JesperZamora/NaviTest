@@ -8,8 +8,8 @@ import {
   KeyboardAvoidingView,
   Platform,
   Keyboard,
+  SafeAreaView
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function EditTaskScreen({ route, navigation }) {
   const [task, setTask] = useState(route.params?.item);
@@ -32,7 +32,7 @@ export default function EditTaskScreen({ route, navigation }) {
 
         <View style={styles.input}>
             <TextInput
-              autoCapitalize="none"
+              autoCapitalize="sentences"
               autoCorrect={false}
               keyboardType="default"
               style={styles.inputTitle}
@@ -45,7 +45,7 @@ export default function EditTaskScreen({ route, navigation }) {
 
           <View style={[styles.input, styles.inputTaskForm]}>
             <TextInput
-              autoCapitalize="none"
+              autoCapitalize="sentences"
               autoCorrect={false}
               keyboardType="default"
               style={styles.inputTask}
@@ -60,8 +60,7 @@ export default function EditTaskScreen({ route, navigation }) {
 
           <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
-            style={{}}
-            keyboardVerticalOffset={150}
+            keyboardVerticalOffset={100}
           >
             <View style={styles.formAction}>
               <TouchableOpacity onPress={navigateToTasks}>
@@ -82,6 +81,7 @@ const styles = StyleSheet.create({
   },
   container: {
     paddingHorizontal: 24,
+    paddingTop:20,
     flex: 1,
   },
   header: {
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   inputTaskForm: {
-    flexGrow: 1
+    flex: 1
   },
   inputTitle: {
     height: 44,

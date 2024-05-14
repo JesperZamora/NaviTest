@@ -9,8 +9,8 @@ import {
   KeyboardAvoidingView,
   Platform,
   Keyboard,
+  SafeAreaView
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function CreateTaskScreen({route, navigation }) {
   const [task, setTask] = useState({
@@ -21,7 +21,6 @@ export default function CreateTaskScreen({route, navigation }) {
   const aiTask = route.params?.item;
   useEffect(() => {
     if (aiTask) {
-      // console.log("Received AI task:", aiTask);
       setTask(aiTask);
     }
   }, [aiTask]);
@@ -54,7 +53,7 @@ export default function CreateTaskScreen({route, navigation }) {
               onChangeText={(title) => setTask({ ...task, title })}
             />
           </View>
-
+          
           <View style={[styles.input, styles.inputTaskForm]}>
             <TextInput
               autoCapitalize="sentences"
@@ -66,13 +65,13 @@ export default function CreateTaskScreen({route, navigation }) {
               value={task.task}
               onChangeText={(newTask) => setTask({ ...task, task: newTask })}
               multiline={true}
-              // numberOfLines={10}
+              textAlignVertical="top" 
             />
           </View>
+
           <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
-            style={{}}
-            keyboardVerticalOffset={150}
+            keyboardVerticalOffset={100}
           >
             <View style={styles.formAction}>
               <TouchableOpacity onPress={navigateToTasks}>
@@ -93,6 +92,7 @@ const styles = StyleSheet.create({
   },
   container: {
     paddingHorizontal: 24,
+    paddingTop:20,
     flex: 1,
   },
   header: {
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   inputTaskForm: {
-    flexGrow: 1
+    flex: 1,
   },
   inputTitle: {
     height: 44,

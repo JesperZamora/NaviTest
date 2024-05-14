@@ -195,7 +195,6 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     width: 290,
   },
-  sendBtn: {},
   box: {
     paddingVertical: 10,
     paddingHorizontal: 12,

@@ -15,8 +15,8 @@ import {
   TextInput,
   TouchableOpacity,
   FlatList,
+  SafeAreaView
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import TaskCard from "../components/TaskCard";
 
 const colData = "tasksCol";
@@ -123,6 +123,7 @@ const styles = StyleSheet.create({
   },
   container: {
     paddingHorizontal: 24,
+    paddingTop:26,
     flex: 1,
   },
   input: {
