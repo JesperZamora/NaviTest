@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { set } from "firebase/database";
+import { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -11,11 +12,19 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function CreateTaskScreen({ navigation }) {
+export default function CreateTaskScreen({route, navigation }) {
   const [task, setTask] = useState({
     title: "",
     task: "",
   });
+
+  const aiTask = route.params?.item;
+  useEffect(() => {
+    if (aiTask) {
+      // console.log("Received AI task:", aiTask);
+      setTask(aiTask);
+    }
+  }, [aiTask]);
   
   function navigateToTasks() {
     if(task.task !== "" || task.title !== "") {

@@ -11,35 +11,15 @@ import {
   Keyboard,
   Image,
   ActivityIndicator,
-  Alert
+  Alert,
 } from "react-native";
 import React, { useState, useRef, useEffect } from "react";
 import { apiCall } from "../api/openAIChat";
 
 import { Entypo } from "@expo/vector-icons";
 
-export default function AIScreen() {
+export default function AIScreen({navigation}) {
   const [messages, setMessages] = useState([]);
-  // const [messages, setMessages] = useState([
-  //   {
-  //     role: "user",
-  //     content: "How are you?",
-  //   },
-  //   {
-  //     role: "assistant",
-  //     content: "I'm fine, How may i help you today.",
-  //   },
-  //   {
-  //     role: "user",
-  //     content: "Create an image of a dog playing with cat",
-  //   },
-  //   {
-  //     role: "assistant",
-  //     content:
-  //       "https://storage.googleapis.com/pai-images/ae74b3002bfe4b538493ca7aedb6a300.jpeg",
-  //   },
-  // ]);
-
   const [isLoading, setIsLoading] = useState(false);
   const [userMessage, setUsermessage] = useState("");
   const flatListRef = useRef();
@@ -54,8 +34,16 @@ export default function AIScreen() {
 
     apiCall(userMessage.trim(), messages).then((res) => {
       if(res.success) {
-        console.log("res", res.data)
-        setMessages([...res.data]);
+        const complentions = res.data;
+        const updatedCompletions = complentions.map((message) => {
+          return {
+            role: message.role,
+            content: message.content,
+            id: `user-${new Date().getTime()}`
+          }
+        });
+        console.log(updatedCompletions);
+        setMessages(updatedCompletions);
         setIsLoading(false);
       } else {
         Alert.alert("Error", res.msg);
@@ -66,9 +54,20 @@ export default function AIScreen() {
 
   useEffect(() => {
     if (flatListRef.current) {
-      flatListRef.current.scrollToEnd({ animated: true });
+      setTimeout(() => {
+        flatListRef.current.scrollToEnd({ animated: true });
+      },200);
     }
   }, [messages]);
+
+  function navigateToCreateTask(selectedMessage) {
+    if(messages) {
+      const filteredMessages = messages.filter((msg) => selectedMessage.id === msg.id);
+      console.log("navigation" , filteredMessages);
+     
+      navigation.navigate("Create Task", {item : { title: filteredMessages[0]. content, task: filteredMessages[1].content}});
+    }
+  }
   
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -82,7 +81,7 @@ export default function AIScreen() {
 
         <FlatList
           ref={flatListRef}
-          //keyExtractor={(item, index) => index.toString()}
+          keyExtractor={(item, index) => index.toString()}
           style={styles.flatlist}
           contentContainerStyle={styles.flatlistContent}
           showsVerticalScrollIndicator={false}
@@ -108,9 +107,12 @@ export default function AIScreen() {
               );
             } else {
               return (
-                <View style={[styles.box, styles.aiBox]}>
-                  <Text style={styles.chatText}>{item.content}</Text>
-                </View>
+                <TouchableOpacity onPress={() => navigateToCreateTask(item)}>
+                  <View style={[styles.box, styles.aiBox]}>
+                    <Text style={styles.chatText}>{item.content}</Text>
+                  </View>
+                </TouchableOpacity>
+
               );
             }
           }}
