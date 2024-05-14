@@ -2,43 +2,42 @@ import {
   View,
   Text,
   StyleSheet,
-  Button,
   SafeAreaView,
   TouchableOpacity,
 } from "react-native";
+import Animated, { FadeInDown, FadeIn } from 'react-native-reanimated'
 
 export default function OverviewScreen({ navigation }) {
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <View style={styles.container}>
+      <Animated.View style={styles.container} entering={FadeIn.duration(500)}>
         <TouchableOpacity onPress={() => navigation.navigate("Tasks")}>
           <View style={styles.btn}>
-            <Text style={styles.btnText}>Go to your tasks</Text>
+            <Animated.Text entering={FadeInDown.delay(50).springify()}   style={styles.btnText}>Go to your tasks</Animated.Text>
             <View>
-              <Text style={styles.text}>Nice to know:</Text>
-              <Text style={styles.text}> * You can view all tasks</Text>
-              <Text style={styles.text}> * Search your for tasks</Text>
-              <Text style={styles.text}> * Create, update, save and delete tasks</Text>
-              <Text style={styles.text}> * Samantha can read your task for you</Text>
-
+              <Animated.Text entering={FadeInDown.delay(100).springify()}  style={styles.text}>Nice to know:</Animated.Text>
+              <Animated.Text entering={FadeInDown.delay(150).springify()} style={styles.text}> * You can view all tasks</Animated.Text>
+              <Animated.Text entering={FadeInDown.delay(200).springify()}  style={styles.text}> * Search your for tasks</Animated.Text>
+              <Animated.Text entering={FadeInDown.delay(250).springify()}  style={styles.text}> * Create, update, save and delete tasks</Animated.Text>
+              <Animated.Text entering={FadeInDown.delay(300).springify()}  style={styles.text}> * Samantha can read your task for you</Animated.Text>
             </View>
           </View>
         </TouchableOpacity>
 
         <TouchableOpacity onPress={() => navigation.navigate("AI")}>
           <View style={styles.btn}>
-            <Text style={styles.btnText}>Converse with AI</Text>
+            <Animated.Text entering={FadeInDown.delay(350).springify()} style={styles.btnText}>Converse with AI</Animated.Text>
             <View>
-              <Text style={styles.text}>Nice to know:</Text>
-              <Text style={styles.text}> * Using ChatGPT & DALL-E</Text>
-              <Text style={styles.text}> * Can chat with AI and make pictures</Text>
-              <Text style={styles.text}> * Create task from AI-Responses</Text>
-              <Text style={styles.text}> * Click the text to create 📜 </Text>
+              <Animated.Text entering={FadeInDown.delay(400).springify()}  style={styles.text}>Nice to know:</Animated.Text>
+              <Animated.Text entering={FadeInDown.delay(450).springify()} style={styles.text}> * Using ChatGPT & DALL-E</Animated.Text>
+              <Animated.Text entering={FadeInDown.delay(500).springify()} style={styles.text}> * Can chat with AI and make pictures</Animated.Text>
+              <Animated.Text entering={FadeInDown.delay(550).springify()} style={styles.text}> * Create task from AI-Responses</Animated.Text>
+              <Animated.Text entering={FadeInDown.delay(600).springify()} style={styles.text}> * Click the text to create 📜 </Animated.Text>
 
             </View>
           </View>
         </TouchableOpacity>
-      </View>
+      </Animated.View>
     </SafeAreaView>
   );
 }

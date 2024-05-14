@@ -1,12 +1,14 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import TextToSpeech from "../speech/TextToSpeech";
 import { Entypo } from '@expo/vector-icons';
+import Animated, { FadeInDown, FadeIn, FadeInRight } from 'react-native-reanimated'
 
 export default function TaskCard({ title, task, navigation, deleteCard }) {
   return (
     <TouchableOpacity onPress={navigation} style={styles.card}>
+      <Animated.View entering={FadeInRight.duration(200)}>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>{title.substring(0, 21)}</Text>
+        <Animated.Text entering={FadeInRight.duration(400)} style={styles.title}>{title.substring(0, 21)}</Animated.Text>
         <View style={styles.btnGroup}>
           <TextToSpeech say={{title, task}} />
           <TouchableOpacity style={{marginBottom: 3}} onPress={deleteCard}>
@@ -15,8 +17,9 @@ export default function TaskCard({ title, task, navigation, deleteCard }) {
         </View>
       </View>
       <View>
-        <Text style={styles.text}>{task.substring(0, 165)}</Text>
+        <Animated.Text entering={FadeInRight.duration(500)} style={styles.text}>{task.substring(0, 165)}</Animated.Text>
       </View> 
+      </Animated.View>
     </TouchableOpacity>
   );
 }

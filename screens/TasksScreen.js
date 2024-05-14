@@ -19,6 +19,7 @@ import {
 } from "react-native";
 import TaskCard from "../components/TaskCard";
 import { AntDesign } from '@expo/vector-icons';
+import Animated, { FadeInDown, FadeIn, FadeInUp, FadeInLeft, FadeInRight } from 'react-native-reanimated'
 
 const colData = "tasksCol";
 export default function TasksScreen({ route, navigation }) {
@@ -79,7 +80,7 @@ export default function TasksScreen({ route, navigation }) {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <View style={styles.container}>
+      <Animated.View style={styles.container} entering={FadeInRight.duration(400)}>
         <View style={styles.input}>
           <AntDesign name="search1" size={22} color="grey" />
           <TextInput
@@ -109,12 +110,12 @@ export default function TasksScreen({ route, navigation }) {
 
         <View style={styles.formAction}>
           <TouchableOpacity onPress={() => navigation.navigate("Create Task")}>
-            <View style={styles.btn}>
+            <Animated.View entering={FadeInRight.duration(500)} style={styles.btn}>
               <Text style={styles.btnText}>Create Task</Text>
-            </View>
+            </Animated.View>
           </TouchableOpacity>
         </View>
-      </View>
+      </Animated.View>
     </SafeAreaView>
   );
 }

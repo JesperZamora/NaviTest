@@ -95,7 +95,7 @@ export default function AIScreen({navigation}) {
                 <View style={[styles.box, styles.aiBox]}>
                   <Image
                     source={{ uri: item.content }}
-                    style={{ borderRadius: 8, height: 240, width: 240 }}
+                    style={{ borderRadius: 8, height: 300, width: 300 }}
                     resizeMode="contain"
                   />
                 </View>
