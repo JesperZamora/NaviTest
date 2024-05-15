@@ -1,4 +1,3 @@
-import { set } from "firebase/database";
 import { useState, useEffect } from "react";
 import {
   View,
@@ -9,10 +8,11 @@ import {
   KeyboardAvoidingView,
   Platform,
   Keyboard,
-  SafeAreaView
+  SafeAreaView,
 } from "react-native";
+import { StackActions } from "@react-navigation/native";
 
-export default function CreateTaskScreen({route, navigation }) {
+export default function CreateTaskScreen({ route, navigation }) {
   const [task, setTask] = useState({
     title: "",
     task: "",
@@ -24,9 +24,13 @@ export default function CreateTaskScreen({route, navigation }) {
       setTask(aiTask);
     }
   }, [aiTask]);
-  
+
   function navigateToTasks() {
-    if(task.task !== "" || task.title !== "") {
+    if (aiTask) {
+      const popAction = StackActions.pop(1);
+      navigation.dispatch(popAction);
+    }
+    if (task.task !== "" || task.title !== "") {
       navigation.navigate("Tasks", { newTask: task });
       setTask({ title: "", task: "" });
     }
@@ -41,46 +45,46 @@ export default function CreateTaskScreen({route, navigation }) {
           </Text>
         </View>
 
-          <View style={styles.input}>
-            <TextInput
-              autoCapitalize="sentences"
-              autoCorrect={false}
-              keyboardType="default"
-              style={styles.inputTitle}
-              placeholder="Task title"
-              placeholderTextColor="#6b7280"
-              value={task.title}
-              onChangeText={(title) => setTask({ ...task, title })}
-            />
-          </View>
-          
-          <View style={[styles.input, styles.inputTaskForm]}>
-            <TextInput
-              autoCapitalize="sentences"
-              autoCorrect={false}
-              keyboardType="default"
-              style={styles.inputTask}
-              placeholder="Just write it down ..."
-              placeholderTextColor="#6b7280"
-              value={task.task}
-              onChangeText={(newTask) => setTask({ ...task, task: newTask })}
-              multiline={true}
-              textAlignVertical="top" 
-            />
-          </View>
+        <View style={styles.input}>
+          <TextInput
+            autoCapitalize="sentences"
+            autoCorrect={false}
+            keyboardType="default"
+            style={styles.inputTitle}
+            placeholder="Task title"
+            placeholderTextColor="#6b7280"
+            value={task.title}
+            onChangeText={(title) => setTask({ ...task, title })}
+          />
+        </View>
 
-          <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
-            keyboardVerticalOffset={100}
-          >
-            <View style={styles.formAction}>
-              <TouchableOpacity onPress={navigateToTasks}>
-                <View style={styles.btn}>
-                  <Text style={styles.btnText}>Save new task</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-          </KeyboardAvoidingView>
+        <View style={[styles.input, styles.inputTaskForm]}>
+          <TextInput
+            autoCapitalize="sentences"
+            autoCorrect={false}
+            keyboardType="default"
+            style={styles.inputTask}
+            placeholder="Just write it down ..."
+            placeholderTextColor="#6b7280"
+            value={task.task}
+            onChangeText={(newTask) => setTask({ ...task, task: newTask })}
+            multiline={true}
+            textAlignVertical="top"
+          />
+        </View>
+
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          keyboardVerticalOffset={100}
+        >
+          <View style={styles.formAction}>
+            <TouchableOpacity onPress={navigateToTasks}>
+              <View style={styles.btn}>
+                <Text style={styles.btnText}>Save new task</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </KeyboardAvoidingView>
       </View>
     </SafeAreaView>
   );
@@ -92,7 +96,7 @@ const styles = StyleSheet.create({
   },
   container: {
     paddingHorizontal: 16,
-    paddingTop:20,
+    paddingTop: 20,
     flex: 1,
   },
   header: {
@@ -131,7 +135,7 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     color: "#222",
     letterSpacing: 0.6,
-    lineHeight: 20
+    lineHeight: 20,
   },
   formAction: {
     marginVertical: 4,
