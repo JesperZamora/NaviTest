@@ -28,9 +28,23 @@ export default function TasksScreen({ route, navigation }) {
   const data =
     values?.docs.map((doc) => ({ ...doc.data(), taskId: doc.id })) ?? [];
 
+
+  const sortByDate = data.sort((objectA, objectB) => {
+    const dateA = objectA.date;
+    const dateB = objectB.date;
+
+    if (dateA < dateB) {
+      return 1;
+    }
+    if (dateA > dateB) {
+      return -1;
+    }
+    return 0;
+  });
+
   const [searchQuery, setSearchQuery] = useState("");
 
-  const filteredTasks = data.filter(
+  const filteredTasks = sortByDate.filter(
     (task) =>
       task.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       task.task.toLowerCase().includes(searchQuery.toLowerCase())

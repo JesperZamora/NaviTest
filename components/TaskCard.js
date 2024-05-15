@@ -82,7 +82,7 @@ export default function TaskCard({
                 entering={FadeInRight.duration(500)}
                 style={styles.text}
               >
-                {task.substring(0, 165)}
+                {task.substring(0, 180) + " ..."}
               </Animated.Text>
             </View>
           </TouchableOpacity>
@@ -94,11 +94,12 @@ export default function TaskCard({
 
 const styles = StyleSheet.create({
   card: {
-    height: 140,
+    maxHeight: 190,
     backgroundColor: "#fff",
     borderRadius: 12,
     marginTop: 20,
-    padding: 12,
+    paddingVertical: 12,
+    paddingHorizontal: 14,
     shadowColor: "#929292",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
@@ -121,7 +122,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "400",
     color: "#929292",
-    letterSpacing: 0.2,
+    letterSpacing: 0.6,
   },
   btnGroup: {
     alignItems: "center",

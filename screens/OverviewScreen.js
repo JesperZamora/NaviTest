@@ -13,7 +13,7 @@ export default function OverviewScreen({ navigation }) {
       <Animated.View style={styles.container} entering={FadeIn.duration(500)}>
         <TouchableOpacity onPress={() => navigation.navigate("Tasks")}>
           <View style={styles.btn}>
-            <Animated.Text entering={FadeInDown.delay(50).springify()}   style={styles.btnText}>Go to your tasks</Animated.Text>
+            <Animated.Text entering={FadeInDown.delay(50).springify()}   style={styles.btnText}>Go to your tasks 🗒️</Animated.Text>
             <View>
               <Animated.Text entering={FadeInDown.delay(100).springify()}  style={styles.text}>Nice to know:</Animated.Text>
               <Animated.Text entering={FadeInDown.delay(150).springify()} style={styles.text}> * You can view all tasks</Animated.Text>
@@ -26,14 +26,26 @@ export default function OverviewScreen({ navigation }) {
 
         <TouchableOpacity onPress={() => navigation.navigate("AI")}>
           <View style={styles.btn}>
-            <Animated.Text entering={FadeInDown.delay(350).springify()} style={styles.btnText}>Converse with AI</Animated.Text>
+            <Animated.Text entering={FadeInDown.delay(350).springify()} style={styles.btnText}>Converse with AI 👨🏻‍💻</Animated.Text>
             <View>
               <Animated.Text entering={FadeInDown.delay(400).springify()}  style={styles.text}>Nice to know:</Animated.Text>
               <Animated.Text entering={FadeInDown.delay(450).springify()} style={styles.text}> * Using ChatGPT & DALL-E</Animated.Text>
-              <Animated.Text entering={FadeInDown.delay(500).springify()} style={styles.text}> * Can chat with AI and make pictures</Animated.Text>
-              <Animated.Text entering={FadeInDown.delay(550).springify()} style={styles.text}> * Create task from AI-Responses</Animated.Text>
-              <Animated.Text entering={FadeInDown.delay(600).springify()} style={styles.text}> * Click the text to create 📜 </Animated.Text>
+              <Animated.Text entering={FadeInDown.delay(500).springify()} style={styles.text}> * Real time AI-responses</Animated.Text>
+              <Animated.Text entering={FadeInDown.delay(550).springify()} style={styles.text}> * Chat with AI and make pictures</Animated.Text>
+              <Animated.Text entering={FadeInDown.delay(600).springify()} style={styles.text}> * Click the AI-response to create task </Animated.Text>
+            </View>
+          </View>
+        </TouchableOpacity>
 
+        <TouchableOpacity onPress={() => {}}>
+          <View style={[styles.btn, {backgroundColor: "#F9DE8A"}]}>
+            <Animated.Text entering={FadeInDown.delay(650).springify()} style={styles.btnText}>Comming sooon ... 👷🏻</Animated.Text>
+            <View>
+              <Animated.Text entering={FadeInDown.delay(700).springify()}  style={styles.text}>Update incomming:</Animated.Text>
+              <Animated.Text entering={FadeInDown.delay(750).springify()} style={styles.text}> * New features with pictures</Animated.Text>
+              <Animated.Text entering={FadeInDown.delay(800).springify()} style={styles.text}> * New and more ...</Animated.Text>
+              <Animated.Text entering={FadeInDown.delay(850).springify()} style={styles.text}> * Even more ....</Animated.Text>
+              <Animated.Text entering={FadeInDown.delay(900).springify()} style={styles.text}> * Really alot more....</Animated.Text>
             </View>
           </View>
         </TouchableOpacity>
@@ -46,13 +58,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 18,
-    gap: 40,
+    gap: 30,
     justifyContent: "center"
   },
   btn: {
     backgroundColor: "#fff",
     borderRadius: "8",
-    borderWidth: 1,
+    borderWidth: 0,
     borderColor: "#fff",
     flexDirection: "row",
     justifyContent: "center",

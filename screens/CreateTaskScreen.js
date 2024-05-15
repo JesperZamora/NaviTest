@@ -16,12 +16,17 @@ export default function CreateTaskScreen({ route, navigation }) {
   const [task, setTask] = useState({
     title: "",
     task: "",
+    date: Date.now()
   });
 
   const aiTask = route.params?.item;
   useEffect(() => {
     if (aiTask) {
-      setTask(aiTask);
+      setTask({
+        title: aiTask.title,
+        task: aiTask.task,
+        date: Date.now()
+      });
     }
   }, [aiTask]);
 
@@ -32,7 +37,7 @@ export default function CreateTaskScreen({ route, navigation }) {
     }
     if (task.task !== "" || task.title !== "") {
       navigation.navigate("Tasks", { newTask: task });
-      setTask({ title: "", task: "" });
+      setTask({ title: "", task: "", date: "" });
     }
   }
 

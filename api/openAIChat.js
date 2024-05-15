@@ -24,10 +24,10 @@ export const apiCall = async(prompt, messages) => {
     let isArt = res.data?.choices[0]?.message?.content;
 
     if(isArt.toLowerCase().includes('yes')) {
-      console.log("dalle api call");
+      console.log("Dall-E call");
       return dalleApiCall(prompt, messages || []);
     } else {
-      console.log("chat gpt api call");
+      console.log("ChatGpt call");
       return chatgptApiCall(prompt, messages || []);
     }
   } catch(error) {
