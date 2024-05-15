@@ -1,4 +1,6 @@
+import { useState, useEffect } from "react";
 import { app, database } from "../firebase";
+import { useCollection } from "react-firebase-hooks/firestore";
 import {
   collection,
   addDoc,
@@ -6,8 +8,6 @@ import {
   doc,
   updateDoc,
 } from "firebase/firestore";
-import { useCollection } from "react-firebase-hooks/firestore";
-import { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -19,7 +19,8 @@ import {
 } from "react-native";
 import TaskCard from "../components/TaskCard";
 import { AntDesign } from '@expo/vector-icons';
-import Animated, { FadeInDown, FadeIn, FadeInUp, FadeInLeft, FadeInRight } from 'react-native-reanimated'
+import Animated, { FadeInRight } from 'react-native-reanimated'
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const colData = "tasksCol";
 export default function TasksScreen({ route, navigation }) {
@@ -94,19 +95,24 @@ export default function TasksScreen({ route, navigation }) {
             onChangeText={(text) => setSearchQuery(text)}
           />
         </View>
-        <FlatList
-          style={styles.flatlist}
-          showsVerticalScrollIndicator={false}
-          data={filteredTasks}
-          renderItem={({ item }) => (
-            <TaskCard
-              title={item?.title}
-              task={item?.task}
-              navigation={() => navigation.navigate("Edit Task", { item })}
-              deleteCard={() => deleteTask(item?.taskId)}
-            />
-          )}
-        />
+        <GestureHandlerRootView style={{flex: 1, justifyContent: "center"}}>
+          <FlatList
+            style={styles.flatlist}
+            showsVerticalScrollIndicator={false}
+            data={filteredTasks}
+            keyExtractor={item => item.taskId}
+            renderItem={({ item }) => (
+              <TaskCard
+                title={item?.title}
+                task={item?.task}
+                id={item?.taskId}
+                navigation={() => navigation.navigate("Edit Task", { item })}
+                deleteCard={() => deleteTask(item?.taskId)}
+                onSwipeOff={() => deleteTask(item?.taskId)}
+              />
+            )}
+          />
+        </GestureHandlerRootView>
 
         <View style={styles.formAction}>
           <TouchableOpacity onPress={() => navigation.navigate("Create Task")}>
