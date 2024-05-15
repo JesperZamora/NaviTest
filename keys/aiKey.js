@@ -1,1 +1,1 @@
-export const apiKey = "sk-proj-E3ygMaeaisSnUhOyc8gZT3BlbkFJ7ESiUjWYn8d83qxRzMSb";
+export const apiKey = "";
