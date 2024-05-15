@@ -8,12 +8,15 @@ import OverviewScreen from "./screens/OverviewScreen";
 import TasksScreen from "./screens/TasksScreen";
 import CreateTaskScreen from "./screens/CreateTaskScreen";
 import EditTaskScreen from "./screens/EditTaskScreen";
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, createUserWithEmailAndPassword, signOut } from 'firebase/auth'
+import { app } from "./firebase";
 
 import { View, Text, TouchableOpacity } from "react-native";
 import AIScreen from "./screens/AIScreen";
 
 export default function App({ navigation }) {
   const Stack = createNativeStackNavigator();
+  const auth = getAuth(app);
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -50,7 +53,14 @@ export default function App({ navigation }) {
           component={OverviewScreen}
           options={({ navigation }) => ({
             headerRight: () => (
-              <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+              <TouchableOpacity onPress={async () => {
+                try {
+                  await signOut(auth);
+                  navigation.navigate("Login");
+                } catch (error) {
+                  console.error('Failed to logout:', error);
+                }
+              }}>
                 <Text style={{ fontSize: 16, fontWeight: "400" }}>Logout</Text>
               </TouchableOpacity>
             ),
@@ -64,7 +74,14 @@ export default function App({ navigation }) {
           component={TasksScreen}
           options={({ navigation }) => ({
             headerRight: () => (
-              <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+              <TouchableOpacity onPress={async () => {
+                try {
+                  await signOut(auth);
+                  navigation.navigate("Login");
+                } catch (error) {
+                  console.error('Failed to logout:', error);
+                }
+              }}>
                 <Text style={{ fontSize: 16, fontWeight: "400" }}>Logout</Text>
               </TouchableOpacity>
             ),

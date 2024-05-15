@@ -1,18 +1,54 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   View,
   Text,
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, createUserWithEmailAndPassword, signOut, initializeAuth, getReactNativePersistence } from 'firebase/auth'
+import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
+import { app } from "../firebase";
+
+export let auth = initializeAuth(app, {
+  persistence: getReactNativePersistence(ReactNativeAsyncStorage)
+});
 
 export default function LoginScreen({ navigation }) {
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if(currentUser) {
+        navigation.navigate("Overview"); 
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+
+  async function login() {
+    if(!form.email || !form.password) {
+      Alert.alert('Attention!','Please fill out all fields');
+      return
+    };
+
+    try {
+      const userCredentials = await signInWithEmailAndPassword(auth, form.email, form.password);
+      console.log('Logged in:', userCredentials.user.uid);
+      if(userCredentials.user.uid) {
+        navigation.navigate("Overview");
+      }
+    } catch (err) {
+      Alert.alert('Invalid credentials', "No account found. Check the email / passaword and try again.")
+      console.log('Error in Login:',err);
+    }
+  }
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
@@ -56,7 +92,7 @@ export default function LoginScreen({ navigation }) {
           </View>
 
           <View style={styles.formAction}>
-            <TouchableOpacity onPress={() => navigation.navigate("Overview")}>
+            <TouchableOpacity onPress={login}>
               <View style={styles.btn}>
                 <Text style={styles.btnText}>Sign in</Text>
               </View>
