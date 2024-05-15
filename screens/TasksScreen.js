@@ -21,6 +21,7 @@ import TaskCard from "../components/TaskCard";
 import { AntDesign } from '@expo/vector-icons';
 import Animated, { FadeInRight } from 'react-native-reanimated'
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { myToast } from "../components/myToaster";
 
 const colData = "tasksCol";
 export default function TasksScreen({ route, navigation }) {
@@ -74,6 +75,7 @@ export default function TasksScreen({ route, navigation }) {
     try {
       const taskDocRef = doc(database, colData, taskId);
       await deleteDoc(taskDocRef);
+      myToast("Task deleted!", "red");
     } catch (error) {
       console.error("Error deleting task:", error);
     }

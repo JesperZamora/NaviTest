@@ -11,6 +11,7 @@ import {
   SafeAreaView,
 } from "react-native";
 import { StackActions } from "@react-navigation/native";
+import { myToast } from "../components/myToaster";
 
 export default function CreateTaskScreen({ route, navigation }) {
   const [task, setTask] = useState({
@@ -18,6 +19,8 @@ export default function CreateTaskScreen({ route, navigation }) {
     task: "",
     date: Date.now()
   });
+
+
 
   const aiTask = route.params?.item;
   useEffect(() => {
@@ -38,8 +41,10 @@ export default function CreateTaskScreen({ route, navigation }) {
     if (task.task !== "" || task.title !== "") {
       navigation.navigate("Tasks", { newTask: task });
       setTask({ title: "", task: "", date: "" });
+      myToast("Task created!", "#039e4f");
     }
   }
+
 
   return (
     <SafeAreaView style={styles.safeArea}>

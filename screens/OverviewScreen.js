@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import Animated, { FadeInDown, FadeIn } from 'react-native-reanimated'
+import { myToast } from "../components/myToaster";
 
 export default function OverviewScreen({ navigation }) {
   return (
@@ -37,7 +38,7 @@ export default function OverviewScreen({ navigation }) {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => {}}>
+        <TouchableOpacity onPress={() => myToast("Not working yet", "#F9DE8A")}>
           <View style={[styles.btn, {backgroundColor: "#F9DE8A"}]}>
             <Animated.Text entering={FadeInDown.delay(650).springify()} style={styles.btnText}>Comming sooon ... 👷🏻</Animated.Text>
             <View>

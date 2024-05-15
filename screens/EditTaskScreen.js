@@ -10,6 +10,7 @@ import {
   Keyboard,
   SafeAreaView
 } from "react-native";
+import { myToast } from "../components/myToaster";
 
 export default function EditTaskScreen({ route, navigation }) {
   const [task, setTask] = useState(route.params?.item);
@@ -18,6 +19,7 @@ export default function EditTaskScreen({ route, navigation }) {
     if(task.task !== "" || task.title !== "") {
       navigation.navigate("Tasks", { editTask: task });
       setTask({ title: "", task: "" });
+      myToast("Task updated!", "#039e4f");
     }
   }
 

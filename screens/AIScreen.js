@@ -15,8 +15,8 @@ import {
 } from "react-native";
 import React, { useState, useRef, useEffect } from "react";
 import { apiCall } from "../api/openAIChat";
-
 import { Entypo } from "@expo/vector-icons";
+import { myToast } from "../components/myToaster";
 
 export default function AIScreen({navigation}) {
   const [messages, setMessages] = useState([]);
@@ -50,7 +50,8 @@ export default function AIScreen({navigation}) {
         setMessages(updatedCompletions);
         setIsLoading(false);
       } else {
-        Alert.alert("Error", res.msg);
+        // Alert.alert("Error", res.msg);
+        myToast("Ups, try again!", "Red");
         setIsLoading(false);
       }
     })
