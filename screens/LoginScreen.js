@@ -8,13 +8,21 @@ import {
   Alert,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, createUserWithEmailAndPassword, signOut, initializeAuth, getReactNativePersistence } from 'firebase/auth'
-import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  createUserWithEmailAndPassword,
+  signOut,
+  initializeAuth,
+  getReactNativePersistence,
+} from "firebase/auth";
+import ReactNativeAsyncStorage from "@react-native-async-storage/async-storage";
 import { app } from "../firebase";
 import { myToast } from "../components/myToaster";
 
 export let auth = initializeAuth(app, {
-  persistence: getReactNativePersistence(ReactNativeAsyncStorage)
+  persistence: getReactNativePersistence(ReactNativeAsyncStorage),
 });
 
 export default function LoginScreen({ navigation }) {
@@ -25,32 +33,36 @@ export default function LoginScreen({ navigation }) {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if(currentUser) {
+      if (currentUser) {
         navigation.navigate("Overview");
-        myToast("Login succesful!", "#039e4f"); 
+        myToast("Login succesful!", "#039e4f");
       }
     });
     return () => unsubscribe();
   }, []);
 
   async function login() {
-    if(!form.email || !form.password) {
-      Alert.alert('Attention!','Please fill out all fields');
+    if (!form.email || !form.password) {
+      Alert.alert("Attention!", "Please fill out all fields");
       myToast("Login failed!", "red");
       return;
-    };
+    }
 
     try {
-      const userCredentials = await signInWithEmailAndPassword(auth, form.email, form.password);
-      console.log('Logged in:', userCredentials.user.uid);
-      if(userCredentials.user.uid) {
+      const userCredentials = await signInWithEmailAndPassword(
+        auth,
+        form.email,
+        form.password
+      );
+      console.log("Logged in:", userCredentials.user.uid);
+      if (userCredentials.user.uid) {
         myToast("Login succesful!", "#039e4f");
         navigation.navigate("Overview");
       }
     } catch (err) {
       // Alert.alert('Invalid credentials', "No account found. Check the email / passaword and try again.")
       myToast("Check the email / passaword and try again!", "red");
-      console.log('Error in Login:',err);
+      console.log("Error in Login:", err);
     }
   }
 

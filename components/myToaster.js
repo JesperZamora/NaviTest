@@ -1,4 +1,4 @@
-import Toast from 'react-native-root-toast'
+import Toast from "react-native-root-toast";
 
 export const myToast = (message, bgColor) => {
   let toast = Toast.show(message, {
@@ -10,10 +10,10 @@ export const myToast = (message, bgColor) => {
     animation: true,
     hideOnPress: true,
     delay: 400,
-    opacity: 0.99
+    opacity: 0.99,
   });
 
   setTimeout(function hideToast() {
     Toast.hide(toast);
   }, 2400);
-}
+};

@@ -37,6 +37,7 @@ export default function CreateTaskScreen({ route, navigation }) {
     if (aiTask) {
       const popAction = StackActions.pop(1);
       navigation.dispatch(popAction);
+
     }
     if (task.task !== "" || task.title !== "") {
       navigation.navigate("Tasks", { newTask: task });

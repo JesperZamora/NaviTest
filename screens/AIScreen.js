@@ -11,7 +11,6 @@ import {
   Keyboard,
   Image,
   ActivityIndicator,
-  Alert,
 } from "react-native";
 import React, { useState, useRef, useEffect } from "react";
 import { apiCall } from "../api/openAIChat";

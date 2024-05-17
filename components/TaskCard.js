@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import TextToSpeech from "../speech/TextToSpeech";
 import { Entypo } from "@expo/vector-icons";
 import Animated, {
@@ -8,10 +8,7 @@ import Animated, {
   withSpring,
   runOnJS,
 } from "react-native-reanimated";
-import {
-  Gesture,
-  GestureDetector,
-} from "react-native-gesture-handler";
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
 
 export default function TaskCard({
   title,
@@ -37,7 +34,7 @@ export default function TaskCard({
       }
     })
     .onEnd(() => {
-      if (Math.abs(translateX.value) > 200) {
+      if (Math.abs(translateX.value) > 230) {
         translateX.value = withSpring(500);
         runOnJS(onSwipeOff)(taskId);
       } else {
@@ -82,7 +79,9 @@ export default function TaskCard({
                 entering={FadeInRight.duration(500)}
                 style={styles.text}
               >
-                {task.substring(0, 180) + " ..."}
+                {task.length > 180
+                  ? task.substring(0, 200) + " ..."
+                  : task.substring(0, 200)}
               </Animated.Text>
             </View>
           </TouchableOpacity>
@@ -94,7 +93,7 @@ export default function TaskCard({
 
 const styles = StyleSheet.create({
   card: {
-    maxHeight: 190,
+    flexGrow: 1,
     backgroundColor: "#fff",
     borderRadius: 12,
     marginTop: 20,
@@ -123,6 +122,7 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     color: "#929292",
     letterSpacing: 0.6,
+    lineHeight: 22,
   },
   btnGroup: {
     alignItems: "center",

@@ -7,8 +7,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
-  Keyboard,
-  SafeAreaView
+  SafeAreaView,
 } from "react-native";
 import { myToast } from "../components/myToaster";
 
@@ -16,7 +15,7 @@ export default function EditTaskScreen({ route, navigation }) {
   const [task, setTask] = useState(route.params?.item);
 
   function navigateToTasks() {
-    if(task.task !== "" || task.title !== "") {
+    if (task.task !== "" || task.title !== "") {
       navigation.navigate("Tasks", { editTask: task });
       setTask({ title: "", task: "" });
       myToast("Task updated!", "#039e4f");
@@ -33,45 +32,44 @@ export default function EditTaskScreen({ route, navigation }) {
         </View>
 
         <View style={styles.input}>
-            <TextInput
-              autoCapitalize="sentences"
-              autoCorrect={false}
-              keyboardType="default"
-              style={styles.inputTitle}
-              placeholder="Task title"
-              placeholderTextColor="#6b7280"
-              value={task.title}
-              onChangeText={(title) => setTask({ ...task, title })}
-            />
-          </View>
+          <TextInput
+            autoCapitalize="sentences"
+            autoCorrect={false}
+            keyboardType="default"
+            style={styles.inputTitle}
+            placeholder="Task title"
+            placeholderTextColor="#6b7280"
+            value={task.title}
+            onChangeText={(title) => setTask({ ...task, title })}
+          />
+        </View>
 
-          <View style={[styles.input, styles.inputTaskForm]}>
-            <TextInput
-              autoCapitalize="sentences"
-              autoCorrect={false}
-              keyboardType="default"
-              style={styles.inputTask}
-              placeholder="Just write it down ..."
-              placeholderTextColor="#6b7280"
-              value={task.task}
-              onChangeText={(newTask) => setTask({ ...task, task: newTask })}
-              multiline={true}
-              // numberOfLines={10}
-            />
-          </View>
+        <View style={[styles.input, styles.inputTaskForm]}>
+          <TextInput
+            autoCapitalize="sentences"
+            autoCorrect={false}
+            keyboardType="default"
+            style={styles.inputTask}
+            placeholder="Just write it down ..."
+            placeholderTextColor="#6b7280"
+            value={task.task}
+            onChangeText={(newTask) => setTask({ ...task, task: newTask })}
+            multiline={true}
+          />
+        </View>
 
-          <KeyboardAvoidingView
-            behavior={Platform.OS === "ios" ? "padding" : "height"}
-            keyboardVerticalOffset={100}
-          >
-            <View style={styles.formAction}>
-              <TouchableOpacity onPress={navigateToTasks}>
-                <View style={styles.btn}>
-                  <Text style={styles.btnText}>Save changes</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-          </KeyboardAvoidingView>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          keyboardVerticalOffset={100}
+        >
+          <View style={styles.formAction}>
+            <TouchableOpacity onPress={navigateToTasks}>
+              <View style={styles.btn}>
+                <Text style={styles.btnText}>Save changes</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </KeyboardAvoidingView>
       </View>
     </SafeAreaView>
   );
@@ -83,7 +81,7 @@ const styles = StyleSheet.create({
   },
   container: {
     paddingHorizontal: 16,
-    paddingTop:20,
+    paddingTop: 20,
     flex: 1,
   },
   header: {
@@ -100,7 +98,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   inputTaskForm: {
-    flex: 1
+    flex: 1,
   },
   inputTitle: {
     height: 44,
@@ -110,7 +108,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "500",
     color: "#222",
-    letterSpacing: 0.6
+    letterSpacing: 0.6,
   },
   inputTask: {
     flexGrow: 1,
@@ -122,7 +120,7 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     color: "#222",
     letterSpacing: 0.6,
-    lineHeight: 20
+    lineHeight: 20,
   },
   form: {
     marginBottom: 24,

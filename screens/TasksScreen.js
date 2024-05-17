@@ -15,11 +15,11 @@ import {
   TextInput,
   TouchableOpacity,
   FlatList,
-  SafeAreaView
+  SafeAreaView,
 } from "react-native";
 import TaskCard from "../components/TaskCard";
-import { AntDesign } from '@expo/vector-icons';
-import Animated, { FadeInRight } from 'react-native-reanimated'
+import { AntDesign } from "@expo/vector-icons";
+import Animated, { FadeInRight } from "react-native-reanimated";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { myToast } from "../components/myToaster";
 
@@ -28,7 +28,6 @@ export default function TasksScreen({ route, navigation }) {
   const [values, loading, error] = useCollection(collection(database, colData));
   const data =
     values?.docs.map((doc) => ({ ...doc.data(), taskId: doc.id })) ?? [];
-
 
   const sortByDate = data.sort((objectA, objectB) => {
     const dateA = objectA.date;
@@ -64,7 +63,7 @@ export default function TasksScreen({ route, navigation }) {
       const editDocRef = doc(database, colData, task.taskId);
       await updateDoc(editDocRef, {
         title: task.title,
-        task: task.task
+        task: task.task,
       });
     } catch (error) {
       console.log("Error updating document:", error);
@@ -97,7 +96,10 @@ export default function TasksScreen({ route, navigation }) {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <Animated.View style={styles.container} entering={FadeInRight.duration(400)}>
+      <Animated.View
+        style={styles.container}
+        entering={FadeInRight.duration(400)}
+      >
         <View style={styles.input}>
           <AntDesign name="search1" size={22} color="grey" />
           <TextInput
@@ -111,12 +113,12 @@ export default function TasksScreen({ route, navigation }) {
             onChangeText={(text) => setSearchQuery(text)}
           />
         </View>
-        <GestureHandlerRootView style={{flex: 1, justifyContent: "center"}}>
+        <GestureHandlerRootView style={{ flex: 1, justifyContent: "center" }}>
           <FlatList
             style={styles.flatlist}
             showsVerticalScrollIndicator={false}
             data={filteredTasks}
-            keyExtractor={item => item.taskId}
+            keyExtractor={(item) => item.taskId}
             renderItem={({ item }) => (
               <TaskCard
                 title={item?.title}
@@ -132,7 +134,10 @@ export default function TasksScreen({ route, navigation }) {
 
         <View style={styles.formAction}>
           <TouchableOpacity onPress={() => navigation.navigate("Create Task")}>
-            <Animated.View entering={FadeInRight.duration(500)} style={styles.btn}>
+            <Animated.View
+              entering={FadeInRight.duration(500)}
+              style={styles.btn}
+            >
               <Text style={styles.btnText}>Create Task</Text>
             </Animated.View>
           </TouchableOpacity>
@@ -148,7 +153,7 @@ const styles = StyleSheet.create({
   },
   container: {
     paddingHorizontal: 16,
-    paddingTop:26,
+    paddingTop: 26,
     flex: 1,
   },
   input: {
@@ -168,7 +173,7 @@ const styles = StyleSheet.create({
   inputControl: {
     flex: 1,
     fontSize: 18,
-    letterSpacing: 0.6
+    letterSpacing: 0.6,
   },
   formAction: {
     marginVertical: 20,

@@ -8,7 +8,7 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   Platform,
-  Keyboard
+  Keyboard,
 } from "react-native";
 import { useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -25,11 +25,11 @@ export default function RegisterScreen({ navigation }) {
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
-      'keyboardDidShow',
+      "keyboardDidShow",
       () => setKeyboardVisible(true)
     );
     const keyboardDidHideListener = Keyboard.addListener(
-      'keyboardDidHide',
+      "keyboardDidHide",
       () => setKeyboardVisible(false)
     );
 
@@ -40,13 +40,12 @@ export default function RegisterScreen({ navigation }) {
   }, []);
   return (
     <SafeAreaView style={styles.safeArea}>
-      
       <KeyboardAvoidingView
         style={styles.container}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         keyboardVerticalOffset={20}
       >
-        <ScrollView 
+        <ScrollView
           showsVerticalScrollIndicator={false}
           scrollEnabled={isKeyboardVisible}
         >
