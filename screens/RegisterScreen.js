@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
   },
   btn: {
     backgroundColor: "#075eec",
-    borderRadius: "8",
+    borderRadius: 8,
     borderWidth: 1,
     borderColor: "#075eec",
     flexDirection: "row",

@@ -17,7 +17,7 @@ import AIScreen from "./screens/AIScreen";
 import { RootSiblingParent } from "react-native-root-siblings";
 import { myToast } from "./components/myToaster";
 
-export default function App({ navigation }) {
+export default function App() {
   const Stack = createNativeStackNavigator();
   const auth = getAuth(app);
   return (
@@ -76,6 +76,7 @@ export default function App({ navigation }) {
               ),
               headerLeft: () => <View />,
               gestureEnabled: false,
+              headerTitleAlign: "center",
             })}
           />
 
@@ -101,11 +102,30 @@ export default function App({ navigation }) {
                   </Text>
                 </TouchableOpacity>
               ),
+              headerTitleAlign: "center",
             })}
           />
-          <Stack.Screen name="AI" component={AIScreen} />
-          <Stack.Screen name="Create Task" component={CreateTaskScreen} />
-          <Stack.Screen name="Edit Task" component={EditTaskScreen} />
+          <Stack.Screen 
+            name="AI" 
+            component={AIScreen}
+            options={{
+              headerTitleAlign: "center",
+            }}
+          />
+          <Stack.Screen 
+            name="Create Task" 
+            component={CreateTaskScreen} 
+            options={{
+              headerTitleAlign: "center",
+            }}
+          />
+          <Stack.Screen 
+            name="Edit Task" 
+            component={EditTaskScreen} 
+            options={{
+              headerTitleAlign: "center",
+            }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </RootSiblingParent>

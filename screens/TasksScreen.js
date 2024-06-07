@@ -26,6 +26,7 @@ import { myToast } from "../components/myToaster";
 const colData = "tasksCol";
 export default function TasksScreen({ route, navigation }) {
   const [values, loading, error] = useCollection(collection(database, colData));
+  
   const data =
     values?.docs.map((doc) => ({ ...doc.data(), taskId: doc.id })) ?? [];
 
@@ -46,8 +47,8 @@ export default function TasksScreen({ route, navigation }) {
 
   const filteredTasks = sortByDate.filter(
     (task) =>
-      task.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      task.task.toLowerCase().includes(searchQuery.toLowerCase())
+      task.title?.toLowerCase().includes(searchQuery?.toLowerCase()) ||
+      task.task?.toLowerCase().includes(searchQuery?.toLowerCase())
   );
 
   async function postTask(task) {
@@ -180,7 +181,7 @@ const styles = StyleSheet.create({
   },
   btn: {
     backgroundColor: "#075eec",
-    borderRadius: "8",
+    borderRadius: 8,
     borderWidth: 1,
     borderColor: "#075eec",
     flexDirection: "row",

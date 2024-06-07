@@ -20,8 +20,6 @@ export default function CreateTaskScreen({ route, navigation }) {
     date: Date.now()
   });
 
-
-
   const aiTask = route.params?.item;
   useEffect(() => {
     if (aiTask) {
@@ -37,7 +35,6 @@ export default function CreateTaskScreen({ route, navigation }) {
     if (aiTask) {
       const popAction = StackActions.pop(1);
       navigation.dispatch(popAction);
-
     }
     if (task.task !== "" || task.title !== "") {
       navigation.navigate("Tasks", { newTask: task });
@@ -153,7 +150,7 @@ const styles = StyleSheet.create({
   },
   btn: {
     backgroundColor: "#039e4f",
-    borderRadius: "8",
+    borderRadius: 8,
     borderWidth: 1,
     borderColor: "#039e4f",
     flexDirection: "row",

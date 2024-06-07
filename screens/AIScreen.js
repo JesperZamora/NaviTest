@@ -25,8 +25,6 @@ export default function AIScreen({navigation}) {
 
   function getAiResponse() { 
     messages.push({role: "user", content: userMessage});
-
-    setMessages([...messages]);
     setUsermessage("");
     Keyboard.dismiss();
     setIsLoading(true);
@@ -43,13 +41,11 @@ export default function AIScreen({navigation}) {
             }
           }
           return message;
-
         });
 
         setMessages(updatedCompletions);
         setIsLoading(false);
       } else {
-        // Alert.alert("Error", res.msg);
         myToast("Ups, try again!", "Red");
         setIsLoading(false);
       }

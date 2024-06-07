@@ -12,8 +12,6 @@ import {
   getAuth,
   signInWithEmailAndPassword,
   onAuthStateChanged,
-  createUserWithEmailAndPassword,
-  signOut,
   initializeAuth,
   getReactNativePersistence,
 } from "firebase/auth";
@@ -21,7 +19,7 @@ import ReactNativeAsyncStorage from "@react-native-async-storage/async-storage";
 import { app } from "../firebase";
 import { myToast } from "../components/myToaster";
 
-export let auth = initializeAuth(app, {
+const auth = initializeAuth(app, {
   persistence: getReactNativePersistence(ReactNativeAsyncStorage),
 });
 
@@ -32,7 +30,8 @@ export default function LoginScreen({ navigation }) {
   });
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const auth_ = getAuth();
+    const unsubscribe = onAuthStateChanged(auth_, (currentUser) => {
       if (currentUser) {
         navigation.navigate("Overview");
         myToast("Login succesful!", "#039e4f");
@@ -60,7 +59,6 @@ export default function LoginScreen({ navigation }) {
         navigation.navigate("Overview");
       }
     } catch (err) {
-      // Alert.alert('Invalid credentials', "No account found. Check the email / passaword and try again.")
       myToast("Check the email / passaword and try again!", "red");
       console.log("Error in Login:", err);
     }
@@ -198,7 +196,7 @@ const styles = StyleSheet.create({
   },
   btn: {
     backgroundColor: "#075eec",
-    borderRadius: "8",
+    borderRadius: 8,
     borderWidth: 1,
     borderColor: "#075eec",
     flexDirection: "row",

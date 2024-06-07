@@ -55,6 +55,7 @@ export default function EditTaskScreen({ route, navigation }) {
             value={task.task}
             onChangeText={(newTask) => setTask({ ...task, task: newTask })}
             multiline={true}
+            textAlignVertical="top"
           />
         </View>
 
@@ -130,7 +131,7 @@ const styles = StyleSheet.create({
   },
   btn: {
     backgroundColor: "#039e4f",
-    borderRadius: "8",
+    borderRadius: 8,
     borderWidth: 1,
     borderColor: "#039e4f",
     flexDirection: "row",

@@ -23,7 +23,6 @@ export default function TaskCard({
 
   const pan = Gesture.Pan()
     .minDistance(20)
-    .onStart(() => {})
     .onUpdate((event) => {
       if (event.translationX > 0) {
         translateX.value = 0;
@@ -62,7 +61,7 @@ export default function TaskCard({
                 entering={FadeInRight.duration(400)}
                 style={styles.title}
               >
-                {title.substring(0, 21)}
+                {title?.substring(0, 21)}
               </Animated.Text>
               <View style={styles.btnGroup}>
                 <TextToSpeech say={{ title, task }} />
@@ -80,8 +79,8 @@ export default function TaskCard({
                 style={styles.text}
               >
                 {task.length > 180
-                  ? task.substring(0, 200) + " ..."
-                  : task.substring(0, 200)}
+                  ? task?.substring(0, 200) + " ..."
+                  : task?.substring(0, 200)}
               </Animated.Text>
             </View>
           </TouchableOpacity>
