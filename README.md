@@ -1,6 +1,8 @@
 ## This a Task application with included the ChatGPT chat and Dall-E image generation
 
-#### The application is ment to be an app where you can create your tasks can keep track of them you can update them. Also if you don't know how to strucktur your tasks or maybe you need help. You can chat with ChatGPT and save the response as a task.
+#### The application is ment to be an app where you can create your tasks can keep track of them you can update them. 
+#### Also if you don't know how to strucktur your tasks or maybe you need help. You can chat with ChatGPT and save the response as a task.
+
 
 #### The app is made with EXPO and React Native
 ### The application includes:
